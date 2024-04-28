@@ -42,7 +42,13 @@ function addTextToOutput(outputDiv, text, splitCount) {
         <p>残り文字数: ${128 - text.length}</p>
         <button onclick="copyText(${splitCount - 1})">コピー</button>
     `;
-    outputDiv.appendChild(div);
+    
+    var lastDiv = outputDiv.lastElementChild;
+    if (lastDiv) {
+        outputDiv.insertBefore(div, lastDiv.nextSibling);
+    } else {
+        outputDiv.appendChild(div);
+    }
 }
 
 function copyText(index) {
