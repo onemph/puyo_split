@@ -5,7 +5,7 @@ function splitText() {
     var copyButton = document.createElement('button');
     copyButton.textContent = 'コピー済';
     outputDiv.appendChild(copyButton);
-    var copyButtonWidth = Math.ceil(copyButton.getBoundingClientRect().width); // 少数以下を切り上げ
+    var copyButtonWidth = Math.ceil(copyButton.getBoundingClientRect().width);
     
     outputDiv.innerHTML = '';
     
@@ -67,10 +67,4 @@ function copyText(index) {
             if (nextButton) {
                 nextButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            var button = document.querySelector(`#output div[data-index="${index}"] button`);
-            button.textContent = 'コピー済';
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-}
+            var button = document.querySelector
