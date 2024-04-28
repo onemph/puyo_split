@@ -11,7 +11,7 @@ function splitText() {
             addTextToOutput(outputDiv, tempText, index, splitTexts.length);
             tempText = '';
         }
-        tempText += '\n' + text;
+        tempText += '<br>' + text; // 改行コードを <br> に変更
         
         if (index === splitTexts.length - 1) {
             addTextToOutput(outputDiv, tempText, index, splitTexts.length);
