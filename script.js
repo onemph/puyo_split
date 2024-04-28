@@ -7,8 +7,10 @@ function splitText() {
   
   var tempText = '';
   splitTexts.forEach(function(text, index) {
-    tempText += text;
-    if ((tempText.length > 128) || (index === splitTexts.length - 1)) {
+    if (index === splitTexts.length - 1) {
+      tempText += text;
+    }
+    if ((tempText.length + text.length) > 128 || index === splitTexts.length - 1) {
       var div = document.createElement('div');
       div.innerHTML = `
         <p>${index + 1}/${splitTexts.length}</p>
@@ -17,7 +19,6 @@ function splitText() {
         <button onclick="copyText(${index})">コピー</button>
       `;
       outputDiv.appendChild(div);
-      tempText = '';
     }
   });
 }
