@@ -1,22 +1,35 @@
 function splitText() {
     var inputText = document.getElementById('inputText').value;
-    var splitTexts = inputText.match(/(?:.{1,128}[。\n])+/g); // 改行が続く場合も含めて文字列を分割
+    var splitTexts = inputText.split(/[\n。]/); // 改行または「。」で文字列を分割
     
     var outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
     
     splitTexts.forEach(function(text, index) {
-        addTextToOutput(outputDiv, text, index + 1, splitTexts.length); // インデックスを1から開始
+        var tempText = '';
+        var lines = text.match(/.{1,128}/g) || []; // 128文字で分割した行
+        
+        lines.forEach(function(line, lineIndex) {
+            if ((tempText.length + line.length) > 128) {
+                addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+                tempText = '';
+            }
+            tempText += line;
+            
+            if (lineIndex === lines.length - 1) {
+                addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+            }
+        });
     });
 }
 
 function addTextToOutput(outputDiv, text, index, total) {
     var div = document.createElement('div');
     div.innerHTML = `
-        <p>${index}/${total}</p>
+        <p>${index + 1}/${total}</p>
         <p>${text}</p>
         <p>残り文字数: ${128 - text.length}</p>
-        <button onclick="copyText(${index - 1})">コピー</button> <!-- インデックスを0から開始 -->
+        <button onclick="copyText(${index})">コピー</button>
     `;
     outputDiv.appendChild(div);
 }
