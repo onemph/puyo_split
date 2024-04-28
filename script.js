@@ -13,12 +13,11 @@ function splitText() {
         <p>${index + 1}/${splitTexts.length}</p>
         <p>${tempText}</p>
         <p>残り文字数: ${128 - tempText.length}</p>
-        <button onclick="copyText(${index - 1})">コピー</button>
+        <button onclick="copyText(${index})">コピー</button>
       `;
       outputDiv.appendChild(div);
-      tempText = text;
-    } else {
-      tempText += text;
+      tempText = '';
     }
+    tempText += text;
   });
 }
