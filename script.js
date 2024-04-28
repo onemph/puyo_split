@@ -7,7 +7,8 @@ function splitText() {
   
   var tempText = '';
   splitTexts.forEach(function(text, index) {
-    if ((tempText.length + text.length) > 128) {
+    tempText += text;
+    if ((tempText.length > 128) || (index === splitTexts.length - 1)) {
       var div = document.createElement('div');
       div.innerHTML = `
         <p>${index + 1}/${splitTexts.length}</p>
@@ -16,20 +17,20 @@ function splitText() {
         <button onclick="copyText(${index})">コピー</button>
       `;
       outputDiv.appendChild(div);
-      tempText = text;
-    } else {
-      tempText += text;
-    }
-    // 最後のテキストの場合
-    if (index === splitTexts.length - 1) {
-      var div = document.createElement('div');
-      div.innerHTML = `
-        <p>${index + 1}/${splitTexts.length}</p>
-        <p>${tempText}</p>
-        <p>残り文字数: ${128 - tempText.length}</p>
-        <button onclick="copyText(${index})">コピー</button>
-      `;
-      outputDiv.appendChild(div);
+      tempText = '';
     }
   });
+}
+
+function copyText(index) {
+  var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      var button = document.querySelectorAll('#output div')[index].querySelector('button');
+      button.textContent = 'コピー済';
+      button.disabled = true;
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
 }
