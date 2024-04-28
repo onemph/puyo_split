@@ -1,9 +1,14 @@
 function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
-    
+
+    var copyButton = document.createElement('button');
+    copyButton.textContent = 'コピー済';
+    outputDiv.appendChild(copyButton);
+    var copyButtonWidth = copyButton.offsetWidth;
+
     outputDiv.innerHTML = '';
-    
+
     var tmpText = '';
     var outputText = '';
 
@@ -19,7 +24,7 @@ function splitText() {
 
             if (totalLength >= 128) {
                 splitCount++;
-                addTextToOutput(outputDiv, outputText, splitCount);
+                addTextToOutput(outputDiv, outputText, splitCount, copyButtonWidth);
                 outputText = '';
             }
 
@@ -30,18 +35,18 @@ function splitText() {
 
     if (outputText.length > 0) {
         splitCount++;
-        addTextToOutput(outputDiv, outputText, splitCount);
+        addTextToOutput(outputDiv, outputText, splitCount, copyButtonWidth);
     }
 }
 
-function addTextToOutput(outputDiv, text, splitCount) {
+function addTextToOutput(outputDiv, text, splitCount, copyButtonWidth) {
     var formattedText = text.replace(/\n/g, "<br>");
-    
+
     var div = document.createElement('div');
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
             <div style="display: flex; align-items: center;">
-                <button onclick="copyText(${splitCount - 1})">コピー</button>
+                <button onclick="copyText(${splitCount - 1})" style="width: ${copyButtonWidth}px;">コピー</button>
                 <p>${splitCount}</p>
             </div>
             <div>
@@ -50,7 +55,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
             </div>
         </div>
     `;
-    
+
     outputDiv.appendChild(div);
 }
 
