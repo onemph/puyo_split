@@ -2,6 +2,8 @@ function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
     
+    outputDiv.innerHTML = '';
+    
     var tmpText = '';
     var outputText = '';
 
@@ -43,12 +45,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
         <button onclick="copyText(${splitCount - 1})">コピー</button>
     `;
     
-    var lastDiv = outputDiv.lastElementChild;
-    if (lastDiv) {
-        outputDiv.insertBefore(div, lastDiv.nextSibling);
-    } else {
-        outputDiv.appendChild(div);
-    }
+    outputDiv.appendChild(div);
 }
 
 function copyText(index) {
