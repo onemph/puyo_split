@@ -41,12 +41,12 @@ function addTextToOutput(outputDiv, text, splitCount) {
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
             <div style="display: flex; align-items: center;">
-                <button onclick="copyText(${splitCount - 1})">コピー</button>
+                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})">コピー</button>
                 <p>${splitCount}</p>
             </div>
             <div>
                 <p>${formattedText}</p>
-                <p id="remainingChars-${splitCount}">残り文字数: ${128 - text.length}</p>
+                <p>残り文字数: ${128 - text.length}</p>
             </div>
         </div>
     `;
@@ -59,10 +59,12 @@ function copyText(index) {
     var text = textElement.querySelector('div:nth-of-type(2) p:first-of-type').innerText;
     navigator.clipboard.writeText(text)
         .then(() => {
+            var nextButton = document.getElementById(`copyButton-${index + 1}`);
+            if (nextButton) {
+                nextButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
             var button = textElement.querySelector('button');
             button.textContent = 'コピー済';
-            var remainingCharsElement = document.getElementById(`remainingChars-${index}`);
-            remainingCharsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
