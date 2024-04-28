@@ -40,9 +40,9 @@ function addTextToOutput(outputDiv, text, splitCount) {
     var div = document.createElement('div');
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <p>${splitCount}</p>
+            <div style="display: flex; align-items: center;">
                 <button onclick="copyText(${splitCount - 1})">コピー</button>
+                <p>${splitCount}</p>
             </div>
             <div>
                 <p>${formattedText}</p>
