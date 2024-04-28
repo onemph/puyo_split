@@ -7,7 +7,7 @@ function splitText() {
   
   var tempText = '';
   splitTexts.forEach(function(text, index) {
-    if ((tempText.length + text.length) > 128 || index === splitTexts.length - 1) {
+    if ((tempText.length + text.length) > 128) {
       var div = document.createElement('div');
       div.innerHTML = `
         <p>${index + 1}/${splitTexts.length}</p>
@@ -16,8 +16,20 @@ function splitText() {
         <button onclick="copyText(${index})">コピー</button>
       `;
       outputDiv.appendChild(div);
-      tempText = '';
+      tempText = text;
+    } else {
+      tempText += text;
     }
-    tempText += text;
+    // 最後のテキストの場合
+    if (index === splitTexts.length - 1) {
+      var div = document.createElement('div');
+      div.innerHTML = `
+        <p>${index + 1}/${splitTexts.length}</p>
+        <p>${tempText}</p>
+        <p>残り文字数: ${128 - tempText.length}</p>
+        <button onclick="copyText(${index})">コピー</button>
+      `;
+      outputDiv.appendChild(div);
+    }
   });
 }
