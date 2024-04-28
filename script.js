@@ -2,37 +2,33 @@ function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
     
-    var variable1 = inputText;
-    var variable2 = '';
-    var variable3 = '';
+    var tmpText = '';
+    var outputText = '';
 
-    // 追加: 分割された回数をカウントする変数を定義
     var splitCount = 0;
 
-    for (var i = 0; i < variable1.length; i++) {
-        var currentChar = variable1[i];
+    for (var i = 0; i < inputText.length; i++) {
+        var currentChar = inputText[i];
 
-        variable2 += currentChar;
+        tmpText += currentChar;
 
-        if (currentChar === '。' || currentChar === '\n' || i === variable1.length - 1) {
-            var totalLength = variable2.length + variable3.length;
+        if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
+            var totalLength = tmpText.length + outputText.length;
 
             if (totalLength >= 128) {
-                // 追加: 分割された回数をインクリメント
                 splitCount++;
-                addTextToOutput(outputDiv, variable3, splitCount);
-                variable3 = '';
+                addTextToOutput(outputDiv, outputText, splitCount);
+                outputText = '';
             }
 
-            variable3 += variable2;
-            variable2 = '';
+            outputText += tmpText;
+            tmpText = '';
         }
     }
 
-    // 追加: 未分割のテキストが残っている場合の処理
-    if (variable3.length > 0) {
+    if (outputText.length > 0) {
         splitCount++;
-        addTextToOutput(outputDiv, variable3, splitCount);
+        addTextToOutput(outputDiv, outputText, splitCount);
     }
 }
 
@@ -55,7 +51,6 @@ function copyText(index) {
         .then(() => {
             var button = document.querySelectorAll('#output div')[index].querySelector('button');
             button.textContent = 'コピー済';
-            button.disabled = true;
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
