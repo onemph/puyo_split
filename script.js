@@ -1,22 +1,29 @@
 function splitText() {
     var inputText = document.getElementById('inputText').value;
-    var splitTexts = inputText.split(/[\n。]/); // 改行または「。」で文字列を分割
-    
     var outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
     
-    var tempText = '';
-    splitTexts.forEach(function(text, index) {
-        if ((tempText.length + text.length) > 128) {
-            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
-            tempText = '';
-        }
-        tempText += '<br>' + text; // 改行コードを <br> に変更
+    var tempText = ''; // 変数2
+    var bufferText = ''; // 変数3
+    
+    for (var i = 0; i < inputText.length; i++) {
+        var char = inputText.charAt(i);
+        tempText += char; // 変数2に1文字ずつ追記
         
-        if (index === splitTexts.length - 1) {
-            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+        if (char === '。' || char === '\n' || i === inputText.length - 1) { // '。'または改行または最後の文字の場合
+            if ((tempText.length + bufferText.length) > 128) { // 変数2 + 変数3 の文字数が128を超える場合
+                addTextToOutput(outputDiv, bufferText, index, splitTexts.length);
+                bufferText = ''; // 変数3をクリア
+            }
+            bufferText += tempText; // 変数3に変数2を追加
+            tempText = ''; // 変数2をクリア
+            
+            if (char === '。' || char === '\n' || i === inputText.length - 1) { // '。'または改行または最後の文字の場合
+                addTextToOutput(outputDiv, bufferText, index, splitTexts.length); // 変数3をHTML出力
+                bufferText = ''; // 変数3をクリア
+            }
         }
-    });
+    }
 }
 
 function addTextToOutput(outputDiv, text, index, total) {
