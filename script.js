@@ -60,10 +60,11 @@ function addTextToOutput(outputDiv, text, splitCount, copyButtonWidth) {
 }
 
 function copyText(index) {
-    var text = document.querySelector(`#output div[data-index="${index}"] div:nth-of-type(2) p:first-of-type`).innerText;
+    var textElement = document.querySelector(`#output div[data-index="${index}"]`);
+    var text = textElement.querySelector('div:nth-of-type(2) p:first-of-type').innerText;
     navigator.clipboard.writeText(text)
         .then(() => {
-            var button = document.querySelector(`#output div[data-index="${index}"] button`);
+            var button = textElement.querySelector('button');
             button.textContent = 'コピー済';
         })
         .catch(err => {
