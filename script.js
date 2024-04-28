@@ -49,7 +49,6 @@ function addTextToOutput(outputDiv, text, splitCount) {
     
     outputDiv.appendChild(div);
     
-    // Add event listener to newly created button
     var copyBtn = div.querySelector('.copy-btn');
     copyBtn.addEventListener('click', function() {
         copyText(splitCount - 1);
