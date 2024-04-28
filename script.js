@@ -11,7 +11,7 @@ function splitText() {
             addTextToOutput(outputDiv, tempText, index, splitTexts.length);
             tempText = '';
         }
-        tempText += text;
+        tempText += '\n' + text;
         
         if (index === splitTexts.length - 1) {
             addTextToOutput(outputDiv, tempText, index, splitTexts.length);
