@@ -1,27 +1,28 @@
 function splitText() {
-    var inputText = document.getElementById('inputText').value;
+    var inputText = document.getElementById('inputText').value; // HTMLのテキストフィールドから入力を取得する
     var outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = '';
     
-    var tempText = ''; // 変数2
-    var bufferText = ''; // 変数3
-    
-    for (var i = 0; i < inputText.length; i++) {
-        var char = inputText.charAt(i);
-        tempText += char; // 変数2に1文字ずつ追記
-        
-        if (char === '。' || char === '\n' || i === inputText.length - 1) { // '。'または改行または最後の文字の場合
-            if ((tempText.length + bufferText.length) > 128) { // 変数2 + 変数3 の文字数が128を超える場合
-                addTextToOutput(outputDiv, bufferText, index, splitTexts.length);
-                bufferText = ''; // 変数3をクリア
+    var variable1 = inputText; // 入力された文字列を変数1に保存する
+    var variable2 = ''; // 変数2を初期化する
+    var variable3 = ''; // 変数3を初期化する
+
+    for (var i = 0; i < variable1.length; i++) {
+        var currentChar = variable1[i]; // 変数1から1文字ずつ読み込む
+
+        variable2 += currentChar; // 読み込んだ1文字を変数2に追記する
+
+        if (currentChar === '。' || currentChar === '\n' || i === variable1.length - 1) {
+            // 読み込んだ文字が"。"または"改行"であるか、変数1の最後の文字まで達した場合
+            var totalLength = variable2.length + variable3.length; // 変数2+変数3の文字数を計算する
+
+            if (totalLength >= 128) {
+                // 変数2+変数3の文字数が128以上の場合
+                addTextToOutput(outputDiv, variable3, i, totalLength); // 変数3をHTML出力する
+                variable3 = ''; // 変数3をクリアする
             }
-            bufferText += tempText; // 変数3に変数2を追加
-            tempText = ''; // 変数2をクリア
-            
-            if (char === '。' || char === '\n' || i === inputText.length - 1) { // '。'または改行または最後の文字の場合
-                addTextToOutput(outputDiv, bufferText, index, splitTexts.length); // 変数3をHTML出力
-                bufferText = ''; // 変数3をクリア
-            }
+
+            variable3 += variable2; // 変数2を変数3に追記する
+            variable2 = ''; // 変数2をクリアする
         }
     }
 }
@@ -37,15 +38,5 @@ function addTextToOutput(outputDiv, text, index, total) {
     outputDiv.appendChild(div);
 }
 
-function copyText(index) {
-    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
-    navigator.clipboard.writeText(text)
-        .then(() => {
-            var button = document.querySelectorAll('#output div')[index].querySelector('button');
-            button.textContent = 'コピー済';
-            button.disabled = true;
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-}
+// splitText関数を呼び出す
+splitText();
