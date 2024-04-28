@@ -6,6 +6,9 @@ function splitText() {
     var variable2 = '';
     var variable3 = '';
 
+    // 追加: 分割された回数をカウントする変数を定義
+    var splitCount = 0;
+
     for (var i = 0; i < variable1.length; i++) {
         var currentChar = variable1[i];
 
@@ -15,7 +18,9 @@ function splitText() {
             var totalLength = variable2.length + variable3.length;
 
             if (totalLength >= 128) {
-                addTextToOutput(outputDiv, variable3, i, totalLength);
+                // 追加: 分割された回数をインクリメント
+                splitCount++;
+                addTextToOutput(outputDiv, variable3, splitCount);
                 variable3 = '';
             }
 
@@ -23,17 +28,23 @@ function splitText() {
             variable2 = '';
         }
     }
+
+    // 追加: 未分割のテキストが残っている場合の処理
+    if (variable3.length > 0) {
+        splitCount++;
+        addTextToOutput(outputDiv, variable3, splitCount);
+    }
 }
 
-function addTextToOutput(outputDiv, text, index, total) {
+function addTextToOutput(outputDiv, text, splitCount) {
     var formattedText = text.replace(/\n/g, "<br>");
     
     var div = document.createElement('div');
     div.innerHTML = `
-        <p>${index + 1}/${total}</p>
+        <p>${splitCount}</p>
         <p>${formattedText}</p>
         <p>残り文字数: ${128 - text.length}</p>
-        <button onclick="copyText(${index})">コピー</button>
+        <button onclick="copyText(${splitCount - 1})">コピー</button>
     `;
     outputDiv.appendChild(div);
 }
