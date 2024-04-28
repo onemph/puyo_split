@@ -53,4 +53,13 @@ function addTextToOutput(outputDiv, text, splitCount) {
 }
 
 function copyText(index) {
-    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2
+    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            var button = document.querySelectorAll('#output div')[index].querySelector('button');
+            button.textContent = 'コピー済';
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+}
