@@ -42,7 +42,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
             <div style="display: flex; align-items: center;">
                 <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})">コピー</button>
-                <p>${splitCount}</p>
+                <p>${splitCount}aaa</p>
             </div>
             <div>
                 <p>${formattedText}</p>
