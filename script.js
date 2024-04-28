@@ -43,23 +43,18 @@ function addTextToOutput(outputDiv, text, splitCount) {
             <p>${splitCount}</p>
             <p>${formattedText}</p>
             <p>残り文字数: ${128 - text.length}</p>
-            <button class="copy-btn" data-index="${splitCount - 1}">コピー</button>
+            <button onclick="copyText(${splitCount - 1})">コピー</button>
         </div>
     `;
     
     outputDiv.appendChild(div);
-    
-    var copyBtn = div.querySelector('.copy-btn');
-    copyBtn.addEventListener('click', function() {
-        copyText(splitCount - 1);
-    });
 }
 
 function copyText(index) {
-    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
+    var text = document.querySelector(`#output div[data-index="${index}"] p:nth-child(2)`).textContent;
     navigator.clipboard.writeText(text)
         .then(() => {
-            var button = document.querySelectorAll('#output div')[index].querySelector('button');
+            var button = document.querySelector(`#output div[data-index="${index}"] button`);
             button.textContent = 'コピー済';
         })
         .catch(err => {
