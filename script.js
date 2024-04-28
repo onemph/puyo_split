@@ -5,18 +5,17 @@ function splitText() {
     var outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
     
+    var tempText = '';
     splitTexts.forEach(function(text, index) {
-        var tempText = text;
-        
-        // テキストが128文字を超える場合に分割
-        while (tempText.length > 128) {
-            var partialText = tempText.substring(0, 128);
-            addTextToOutput(outputDiv, partialText, index, splitTexts.length);
-            tempText = tempText.substring(128);
+        if ((tempText.length + text.length) > 128) {
+            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+            tempText = '';
         }
+        tempText += text;
         
-        // 残りのテキストを追加
-        addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+        if (index === splitTexts.length - 1) {
+            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+        }
     });
 }
 
