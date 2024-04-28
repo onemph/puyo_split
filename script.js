@@ -40,9 +40,9 @@ function addTextToOutput(outputDiv, text, splitCount) {
     var div = document.createElement('div');
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
-            <button onclick="copyText(${splitCount - 1})">コピー</button>
+            <button onclick="copyText(${splitCount - 1})" style="display: inline-block;">コピー</button>
+            <p style="display: inline-block; margin-left: 5px;">${splitCount}</p>
             <div style="display: inline-block;">
-                <p>${splitCount}</p>
                 <p>${formattedText}</p>
             </div>
             <p>残り文字数: ${128 - text.length}</p>
