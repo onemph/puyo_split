@@ -61,8 +61,10 @@ function addTextToOutput(outputDiv, text, splitCount, copyButtonWidth) {
 
 function copyText(index) {
     var textElement = document.querySelector(`#output div[data-index="${index}"]`);
+    alert(textElement.querySelector('div:nth-of-type(1) p:first-of-type').outerHTML
+    alert(textElement.querySelector('div:nth-of-type(2) p:first-of-type').outerHTML
+    alert(textElement.querySelector('div:nth-of-type(3) p:first-of-type').outerHTML
     var text = textElement.querySelector('div:nth-of-type(1) p:first-of-type') //.innerText;
-    alert(text.outerHTML);
     navigator.clipboard.writeText(text)
         .then(() => {
             var button = textElement.querySelector('button');
