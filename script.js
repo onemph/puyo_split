@@ -40,12 +40,10 @@ function addTextToOutput(outputDiv, text, splitCount) {
     var div = document.createElement('div');
     div.innerHTML = `
         <div style="border-top: 1px solid #ccc; padding-top: 10px;">
-            <div style="display: flex; align-items: center;">
-                <button onclick="copyText(${splitCount - 1})">コピー</button>
-                <p style="margin-left: 10px;">${splitCount}</p>
-            </div>
+            <p>${splitCount}</p>
             <p>${formattedText}</p>
             <p>残り文字数: ${128 - text.length}</p>
+            <button onclick="copyText(${splitCount - 1})">コピー</button>
         </div>
     `;
     
@@ -53,7 +51,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
 }
 
 function copyText(index) {
-    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').innerText;
+    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
     navigator.clipboard.writeText(text)
         .then(() => {
             var button = document.querySelectorAll('#output div')[index].querySelector('button');
