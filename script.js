@@ -5,7 +5,7 @@ function splitText() {
     var copyButton = document.createElement('button');
     copyButton.textContent = 'コピー済';
     outputDiv.appendChild(copyButton);
-    var copyButtonWidth = copyButton.offsetWidth;
+    var copyButtonWidth = copyButton.getBoundingClientRect().width;
 
     outputDiv.innerHTML = '';
 
