@@ -51,13 +51,18 @@ function addTextToOutput(outputDiv, text, splitCount) {
 }
 
 function copyText(index) {
-    var text = document.querySelector(`#output div[data-index="${index}"] p:nth-child(2)`).textContent;
-    navigator.clipboard.writeText(text)
-        .then(() => {
-            var button = document.querySelector(`#output div[data-index="${index}"] button`);
-            button.textContent = 'コピー済';
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
+    var targetElement = document.querySelector(`#output div[data-index="${index}"] p:nth-of-type(2)`);
+    if (targetElement) {
+        var text = targetElement.textContent;
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                var button = document.querySelector(`#output div[data-index="${index}"] button`);
+                button.textContent = 'コピー済';
+            })
+            .catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+    } else {
+        console.error('Target element not found.');
+    }
 }
