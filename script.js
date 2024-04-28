@@ -5,21 +5,17 @@ function splitText() {
     var outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
     
+    var tempText = '';
     splitTexts.forEach(function(text, index) {
-        var tempText = '';
-        var lines = text.match(/.{1,128}/g) || []; // 128文字で分割した行
+        if ((tempText.length + text.length) > 128) {
+            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+            tempText = '';
+        }
+        tempText += '\n' + text;
         
-        lines.forEach(function(line, lineIndex) {
-            if ((tempText.length + line.length) > 128) {
-                addTextToOutput(outputDiv, tempText, index, splitTexts.length);
-                tempText = '';
-            }
-            tempText += line;
-            
-            if (lineIndex === lines.length - 1) {
-                addTextToOutput(outputDiv, tempText, index, splitTexts.length);
-            }
-        });
+        if (index === splitTexts.length - 1) {
+            addTextToOutput(outputDiv, tempText, index, splitTexts.length);
+        }
     });
 }
 
