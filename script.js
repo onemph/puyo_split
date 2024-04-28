@@ -55,15 +55,14 @@ function addTextToOutput(outputDiv, text, splitCount) {
 }
 
 function copyText(index) {
-    var textElement = document.querySelector(`#output div[data-index="${index}"] p:first-of-type`);
-    var text = textElement.innerText;
+    var text = document.querySelector(`#output div[data-index="${index}"] div:nth-of-type(2) p:first-of-type`).innerText;
     navigator.clipboard.writeText(text)
         .then(() => {
             var nextButton = document.getElementById(`copyButton-${index + 1}`);
             if (nextButton) {
                 nextButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            var button = textElement.parentElement.parentElement.querySelector('button');
+            var button = document.querySelector(`#output div[data-index="${index}"] button`);
             button.textContent = 'コピー済';
         })
         .catch(err => {
