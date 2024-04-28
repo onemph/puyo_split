@@ -43,11 +43,17 @@ function addTextToOutput(outputDiv, text, splitCount) {
             <p>${splitCount}</p>
             <p>${formattedText}</p>
             <p>残り文字数: ${128 - text.length}</p>
-            <button onclick="copyText(${splitCount - 1})">コピー</button>
+            <button class="copy-btn" data-index="${splitCount - 1}">コピー</button>
         </div>
     `;
     
     outputDiv.appendChild(div);
+    
+    // Add event listener to newly created button
+    var copyBtn = div.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', function() {
+        copyText(splitCount - 1);
+    });
 }
 
 function copyText(index) {
