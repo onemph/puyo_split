@@ -53,7 +53,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
 }
 
 function copyText(index) {
-    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').textContent;
+    var text = document.querySelectorAll('#output div')[index].querySelector('p:nth-child(2)').innerText;
     navigator.clipboard.writeText(text)
         .then(() => {
             var button = document.querySelectorAll('#output div')[index].querySelector('button');
