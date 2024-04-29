@@ -22,7 +22,6 @@ function splitText() {
                 splitCount++;
                 addTextToOutput(outputDiv, outputText, splitCount);
                 outputText = '';
-                tmpText = '';
             }
 
             outputText += tmpText;
