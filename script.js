@@ -1,16 +1,13 @@
 function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
-    
     outputDiv.innerHTML = '';
-    
     var tmpText = '';
     var outputText = '';
     var splitCount = 0;
 
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
-
         tmpText += currentChar;
 
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
