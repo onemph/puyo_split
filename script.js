@@ -14,7 +14,7 @@ function splitText() {
 
         tmpText += currentChar;
 
-        if (currentChar === '。' || (currentChar === '\n' && tmpText.trim() !== '') || i === inputText.length - 1) {
+        if (currentChar === '。' || (currentChar === '\n') || i === inputText.length - 1) {
             outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
 
