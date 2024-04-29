@@ -1,9 +1,19 @@
+var copyButtonWidth = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    var copyButton = document.createElement('button');
+    copyButton.textContent = 'コピー済';
+    var outputDiv = document.getElementById('output');
+    outputDiv.appendChild(copyButton);
+    copyButtonWidth = copyButton.getBoundingClientRect().width;
+});
+
 function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
-    
+
     outputDiv.innerHTML = '';
-    
+
     var tmpText = '';
     var outputText = '';
     var splitCount = 0;
@@ -39,12 +49,12 @@ function splitText() {
 function addTextToOutput(outputDiv, text, splitCount) {
     var trimmedText = text.trim();
     var formattedText = trimmedText.replace(/\n/g, "<br>");
-    
+
     var div = document.createElement('div');
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
             <div style="display: flex; align-items: center;">
-                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})" style="background-color: #80e27e;">コピー</button>
+                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})" style="background-color: #80e27e; width: ${copyButtonWidth}px;">コピー</button>
                 <p>${splitCount}</p>
             </div>
             <div>
@@ -53,7 +63,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
             </div>
         </div>
     `;
-    
+
     outputDiv.appendChild(div);
 }
 
@@ -67,7 +77,7 @@ function copyText(index) {
             }
             var button = document.querySelector(`#output div[data-index="${index}"] button`);
             button.textContent = 'コピー済';
-            button.style.backgroundColor = '#ffad60'; 
+            button.style.backgroundColor = '#ffad60';
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
