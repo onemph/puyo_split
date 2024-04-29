@@ -36,7 +36,8 @@ function splitText() {
 }
 
 function addTextToOutput(outputDiv, text, splitCount) {
-    var formattedText = text.replace(/^\n*/, "").replace(/\n/g, "<br>");
+    var trimmedText = text.trim();
+    var formattedText = trimmedText.replace(/\n/g, "<br>");
     
     var div = document.createElement('div');
     div.innerHTML = `
