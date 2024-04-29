@@ -1,16 +1,20 @@
 function splitText() {
     var inputText = document.getElementById('inputText').value;
     var outputDiv = document.getElementById('output');
+    
     outputDiv.innerHTML = '';
+    
     var tmpText = '';
     var outputText = '';
     var splitCount = 0;
 
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
+
         tmpText += currentChar;
 
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
+            outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
             var lineCount = (outputText.match(/\n/g) || []).length;
 
@@ -62,10 +66,4 @@ function copyText(index) {
             if (nextButton) {
                 nextButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            var button = document.querySelector(`#output div[data-index="${index}"] button`);
-            button.textContent = 'コピー済';
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-}
+            var
