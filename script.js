@@ -14,7 +14,8 @@ function splitText() {
 
         tmpText += currentChar;
 
-        if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
+        if (currentChar === '。' || (currentChar === '\n' && tmpText.trim() !== '') || i === inputText.length - 1) {
+            outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
 
             if (totalLength >= 128) {
@@ -35,8 +36,7 @@ function splitText() {
 }
 
 function addTextToOutput(outputDiv, text, splitCount) {
-    var trimmedText = text.trim();
-    var formattedText = trimmedText.replace(/\n/g, "<br>");
+    var formattedText = text.replace(/^\n*/, "").replace(/\n/g, "<br>");
     
     var div = document.createElement('div');
     div.innerHTML = `
@@ -47,7 +47,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
             </div>
             <div>
                 <p>${formattedText}</p>
-                <p>残り文字数: ${128 - trimmedText.length}</p>
+                <p>残り文字数: ${128 - text.length}</p>
             </div>
         </div>
     `;
