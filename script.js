@@ -14,7 +14,7 @@ function splitText() {
         tmpText += currentChar;
 
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
-            outputText = outputText.trim();
+            outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
             var lineCount = (outputText.match(/\n/g) || []).length;
 
