@@ -1,11 +1,12 @@
 var copyButtonWidth = null;
 
 document.addEventListener('DOMContentLoaded', function() {
+    var outputDiv = document.getElementById('output');
     var copyButton = document.createElement('button');
     copyButton.textContent = 'コピー済';
-    var outputDiv = document.getElementById('output');
     outputDiv.appendChild(copyButton);
     copyButtonWidth = copyButton.getBoundingClientRect().width;
+    outputDiv.removeChild(copyButton);
 });
 
 function splitText() {
