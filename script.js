@@ -44,7 +44,7 @@ function addTextToOutput(outputDiv, text, splitCount) {
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
             <div style="display: flex; align-items: center;">
-                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})" style="background-color: green;">コピー</button>
+                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})" style="background-color: #7fb3d5;">コピー</button>
                 <p>${splitCount}</p>
             </div>
             <div>
@@ -67,7 +67,7 @@ function copyText(index) {
             }
             var button = document.querySelector(`#output div[data-index="${index}"] button`);
             button.textContent = 'コピー済';
-            button.style.backgroundColor = 'orange';
+            button.style.backgroundColor = '#ffad60'; 
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
