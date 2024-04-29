@@ -6,7 +6,6 @@ function splitText() {
     
     var tmpText = '';
     var outputText = '';
-
     var splitCount = 0;
 
     for (var i = 0; i < inputText.length; i++) {
@@ -15,12 +14,15 @@ function splitText() {
         tmpText += currentChar;
 
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
+            outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
+            var lineCount = (outputText.match(/\n/g) || []).length;
 
-            if (totalLength >= 128) {
+            if (totalLength >= 128 || lineCount >= 10) {
                 splitCount++;
                 addTextToOutput(outputDiv, outputText, splitCount);
                 outputText = '';
+                tmpText = '';
             }
 
             outputText += tmpText;
@@ -30,12 +32,14 @@ function splitText() {
 
     if (outputText.length > 0) {
         splitCount++;
+        outputText = outputText.replace(/^\n*/, '');
         addTextToOutput(outputDiv, outputText, splitCount);
     }
 }
 
 function addTextToOutput(outputDiv, text, splitCount) {
-    var formattedText = text.replace(/\n/g, "<br>");
+    var trimmedText = text.trim();
+    var formattedText = trimmedText.replace(/\n/g, "<br>");
     
     var div = document.createElement('div');
     div.innerHTML = `
