@@ -24,6 +24,7 @@ function splitText() {
         var currentChar = inputText[i];
 
         if (currentChar === delimiter) {
+            outputText += tmpText;
             splitCount++;
             addTextToOutput(outputDiv, outputText, splitCount);
             outputText = '';
