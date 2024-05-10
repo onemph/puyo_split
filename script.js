@@ -22,9 +22,11 @@ function splitText() {
 
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
+console.log('currentChar', currentChar);
 
         // 強制区切り文字があれば、その時点で分割
         if (currentChar === delimiter) {
+console.log('強制');
             splitCount++;
             addTextToOutput(outputDiv, outputText, splitCount);
             outputText = '';
@@ -39,6 +41,7 @@ function splitText() {
             var lineCount = (outputText.match(/\n/g) || []).length;
 
             if (totalLength >= 128 || lineCount >= 10) {
+console.log('非強制');
                 splitCount++;
                 addTextToOutput(outputDiv, outputText, splitCount);
                 outputText = '';
@@ -51,6 +54,7 @@ function splitText() {
 
     outputText = outputText.trim();
     if (outputText.length > 0) {
+console.log('最後');
         splitCount++;
         addTextToOutput(outputDiv, outputText, splitCount);
     }
