@@ -23,14 +23,14 @@ function splitText() {
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
 
-        tmpText += currentChar;
-
         // 強制区切り文字があれば、その時点で分割
         if (currentChar === delimiter) {
             splitCount++;
             addTextToOutput(outputDiv, outputText, splitCount);
             outputText = '';
         }
+
+        tmpText += currentChar;
 
         // 文章の終端または句点・改行で分割
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
@@ -63,33 +63,4 @@ function addTextToOutput(outputDiv, text, splitCount) {
     var div = document.createElement('div');
     div.innerHTML = `
         <div data-index="${splitCount - 1}" style="border-top: 1px solid #ccc; padding-top: 10px;">
-            <div style="display: flex; align-items: center;">
-                <button id="copyButton-${splitCount - 1}" onclick="copyText(${splitCount - 1})" style="background-color: #80e27e; width: ${copyButtonWidth}px;">コピー</button>
-                <p>${splitCount}</p>
-            </div>
-            <div>
-                <p>${formattedText}</p>
-                <p>残り文字数: ${128 - text.length}</p>
-            </div>
-        </div>
-    `;
-
-    outputDiv.appendChild(div);
-}
-
-function copyText(index) {
-    var text = document.querySelector(`#output div[data-index="${index}"] div:nth-of-type(2) p:first-of-type`).innerText;
-    navigator.clipboard.writeText(text)
-        .then(() => {
-            var nextButton = document.getElementById(`copyButton-${index + 1}`);
-            if (nextButton) {
-                nextButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            var button = document.querySelector(`#output div[data-index="${index}"] button`);
-            button.textContent = 'コピー済';
-            button.style.backgroundColor = '#ffad60';
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-}
+            <div style="display: flex; align-items
