@@ -23,15 +23,22 @@ function splitText() {
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
 
+        if (currentChar === delimiter) {
+            splitCount++;
+            addTextToOutput(outputDiv, outputText, splitCount);
+            outputText = '';
+            tmpText = '';
+            continue;
+        }
+
         tmpText += currentChar;
 
-        if (currentChar === '。' || currentChar === '\n' || currentChar === delimiter || i === inputText.length - 1) {
+        if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
             outputText = outputText.replace(/^\n*/, '');
-            outputText = outputText.replace(new RegExp(delimiter, 'g'), '');
             var totalLength = tmpText.length + outputText.length;
             var lineCount = (outputText.match(/\n/g) || []).length;
 
-            if (totalLength >= 128 || lineCount >= 10 || currentChar === delimiter) {
+            if (totalLength >= 128 || lineCount >= 10) {
                 splitCount++;
                 addTextToOutput(outputDiv, outputText, splitCount);
                 outputText = '';
