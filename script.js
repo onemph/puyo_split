@@ -23,14 +23,14 @@ function splitText() {
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
 
-        tmpText += currentChar;
-
         // 強制区切り文字があれば、その時点で分割
         if (currentChar === delimiter) {
             splitCount++;
             addTextToOutput(outputDiv, outputText, splitCount);
             outputText = '';
         }
+
+        tmpText += currentChar;
 
         // 文章の終端または句点・改行で分割
         if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
