@@ -25,7 +25,15 @@ function splitText() {
 
         tmpText += currentChar;
 
-        if (currentChar === '。' || currentChar === '\n' || currentChar === delimiter || i === inputText.length - 1) {
+        // 強制区切り文字があれば、その時点で分割
+        if (currentChar === delimiter) {
+            splitCount++;
+            addTextToOutput(outputDiv, outputText, splitCount);
+            outputText = '';
+        }
+
+        // 文章の終端または句点・改行で分割
+        if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
             outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
             var lineCount = (outputText.match(/\n/g) || []).length;
