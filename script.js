@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function splitText() {
     var inputText = document.getElementById('inputText').value;
+    var delimiter = document.getElementById('delimiter').value;
     var outputDiv = document.getElementById('output');
 
     outputDiv.innerHTML = '';
@@ -24,7 +25,7 @@ function splitText() {
 
         tmpText += currentChar;
 
-        if (currentChar === '。' || currentChar === '\n' || i === inputText.length - 1) {
+        if (currentChar === '。' || currentChar === '\n' || currentChar === delimiter || i === inputText.length - 1) {
             outputText = outputText.replace(/^\n*/, '');
             var totalLength = tmpText.length + outputText.length;
             var lineCount = (outputText.match(/\n/g) || []).length;
