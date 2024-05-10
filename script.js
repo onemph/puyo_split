@@ -13,6 +13,7 @@ function splitText() {
     var inputText = document.getElementById('inputText').value;
     var delimiter = document.getElementById('delimiter').value;
     var outputDiv = document.getElementById('output');
+    console.log('delimiter: ', delimiter);
 
     outputDiv.innerHTML = '';
 
@@ -22,6 +23,8 @@ function splitText() {
 
     for (var i = 0; i < inputText.length; i++) {
         var currentChar = inputText[i];
+        console.log('currentChar: ', currentChar);
+
 
         tmpText += currentChar;
 
